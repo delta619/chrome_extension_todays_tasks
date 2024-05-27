@@ -12,22 +12,25 @@ const create_todo_html = (val, done) => {
     const todo = document.createElement("div");
     todo.className = "todo";
 
-    const delete_btn = document.createElement("button");
-    delete_btn.className = "delete_todo";
-    delete_btn.innerHTML = "X";
-
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.className = "todo_checkbox";
     checkbox.checked = done;
 
+    const todoContent = document.createElement("div");
+    todoContent.className = "todo_content";
+
     const todo_text = document.createElement("span");
     todo_text.className = "todo_text";
     todo_text.innerHTML = val;
 
-    todo.appendChild(delete_btn);
-    todo.appendChild(checkbox);
-    todo.appendChild(todo_text);
+    const delete_cross = document.createElement("span");
+    delete_cross.className = "delete_cross";
+
+    todoContent.appendChild(checkbox);
+    todoContent.appendChild(todo_text);
+    todo.appendChild(todoContent);
+    todo.appendChild(delete_cross);
 
     if (done) {
         todo.classList.add("done");
@@ -35,7 +38,6 @@ const create_todo_html = (val, done) => {
 
     return todo;
 };
-
 // Function to add a todo
 const addTodo = (domain, val) => {
     if (domain in db) {
@@ -91,14 +93,14 @@ document.addEventListener('click', (e) => {
 });
 
 // Event listener for toggling todo completion
-todos_container.addEventListener('change', (e) => {
-    if (e.target && e.target.classList.contains('todo_checkbox')) {
-        const todoText = e.target.nextElementSibling.innerHTML;
-        const isDone = e.target.checked;
-        updateTodoStatus(domain, todoText, isDone);
+todos_container.addEventListener('click', (e) => {
+    if (e.target && e.target.classList.contains('delete_cross')) {
+        const todo = e.target.parentElement;
+        const todoText = todo.querySelector('.todo_text').innerHTML;
+        deleteTodo(domain, todoText);
+        todo.remove();
     }
 });
-
 // Function to update todo status
 const updateTodoStatus = (domain, val, isDone) => {
     db[domain].forEach((todo) => {

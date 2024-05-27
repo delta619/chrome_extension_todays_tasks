@@ -22,14 +22,14 @@ body{
 
 .container{
     /* border: 1px solid black; */
-    padding: 10px;
+    /* padding: 10px; */
     height: 100%;
     width: 100%;
 
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
-    align-items: center;
+    /* align-items: center; */
     overflow: scroll;
 
 }
@@ -38,8 +38,28 @@ body{
     font-weight: 200;
     margin-bottom: 10px;
 }
-
-.new_todo{
-    padding: 5px
+.delete_cross {
+    width: 20px; /* Adjust size as needed */
+    height: 20px;
+    background-image: url('https://static.vecteezy.com/system/resources/previews/017/178/056/original/red-cross-mark-on-transparent-background-free-png.png'); /* Path to your red cross image */
+    background-size: cover; /* Ensure the image covers the entire span */
+    background-repeat: no-repeat;
+    cursor: pointer; /* Optionally add cursor style */
 }
 
+
+.todo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.todo_content {
+    display: flex;
+    align-items: center;
+}
+
+.todo_text {
+    margin-right: 10px;
+}
