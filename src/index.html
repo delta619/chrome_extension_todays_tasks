@@ -1,16 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <title>Today's Tasks</title>
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 
 <body>
     <div class="container">
-        <span class="hint">Tasks for this site only</span>
-        <div class="new_todo_container">
-            <input type="text" id="new_todo_input" maxlength="30" placeholder="New task">
+        <div class="hint-row">
+            <span class="hint" id="hint_text">Tasks for this site only</span>
+            <div class="hint-row-actions">
+                <button id="all_tasks_btn" title="View all tasks">
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                        <rect x="1" y="1" width="4" height="4" rx="1" fill="currentColor"/>
+                        <rect x="7" y="1" width="4" height="4" rx="1" fill="currentColor"/>
+                        <rect x="1" y="7" width="4" height="4" rx="1" fill="currentColor"/>
+                        <rect x="7" y="7" width="4" height="4" rx="1" fill="currentColor"/>
+                    </svg>
+                </button>
+                <span id="sync_indicator" class="sync-dot sync-dot--local" title="Saving locally"></span>
+            </div>
         </div>
+        <div id="conflict_banner" class="conflict-banner hidden"></div>
+        <input type="text" id="new_todo_input" maxlength="30" placeholder="New task">
         <div id="todos_container"></div>
     </div>
     <script src="scripts/script.js"></script>

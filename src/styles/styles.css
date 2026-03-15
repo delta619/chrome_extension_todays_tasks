@@ -1,3 +1,17 @@
+:root {
+    --color-accent:      #6366f1;
+    --color-text:        #374151;
+    --color-text-done:   #d1d5db;
+    --color-placeholder: #c0c0c0;
+    --color-hint:        #9ca3af;
+    --color-border:      #e5e7eb;
+    --color-bg-input:    #f9fafb;
+    --color-bg-item:     #f9fafb;
+    --color-bg-hover:    #f3f4f6;
+    --color-delete:      #ef4444;
+    --color-sync-pending: #f59e0b;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,7 +20,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background-color: #ffffff;
+    background: #ffffff;
     color: #1a1a1a;
     width: 15rem;
     height: 20rem;
@@ -17,7 +31,6 @@ body {
 
 .container {
     height: 100%;
-    width: 100%;
     display: flex;
     flex-direction: column;
     padding: 12px;
@@ -25,34 +38,133 @@ body {
     overflow: hidden;
 }
 
-.hint {
-    font-size: 10px;
-    color: #9ca3af;
-    text-align: center;
+.hint-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.new_todo_container {
+.hint-row-actions {
     display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#all_tasks_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--color-hint);
+    transition: color 0.15s;
+}
+
+#all_tasks_btn:hover  { color: var(--color-text); }
+#all_tasks_btn.active { color: var(--color-accent); }
+
+.hint {
+    font-size: 10px;
+    color: var(--color-hint);
+}
+
+.sync-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: background-color 0.3s;
+}
+
+.sync-dot--local {
+    background-color: var(--color-hint);
+    cursor: pointer;
+    position: relative;
+}
+
+.sync-dot--local::after {
+    content: "Sign in with Google to sync";
+    position: absolute;
+    right: 0;
+    top: 12px;
+    white-space: nowrap;
+    background: #1a1a1a;
+    color: #fff;
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 10;
+}
+
+.sync-dot--local:hover::after { opacity: 1; }
+.sync-dot--synced  { background-color: var(--color-accent); cursor: pointer; }
+.sync-dot--synced:hover { background-color: var(--color-delete); transition: background-color 0.15s; }
+.sync-dot--merging {
+    background-color: var(--color-sync-pending);
+    animation: sync-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes sync-pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+}
+
+
+.hidden { display: none; }
+
+.domain-group { display: flex; flex-direction: column; gap: 4px; }
+
+.domain-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--color-hint);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 2px;
+    margin-top: 4px;
+}
+
+.domain-group:first-child .domain-label { margin-top: 0; }
+
+.conflict-banner {
+    font-size: 10px;
+    color: var(--color-accent);
+    text-align: center;
+    padding: 4px 8px;
+    background: #eef2ff;
+    border-radius: 6px;
+    animation: fade-in 0.2s ease;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 #new_todo_input {
     width: 100%;
     padding: 6px 10px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-border);
     border-radius: 6px;
     font-size: 12px;
     color: #1a1a1a;
-    background: #f9fafb;
+    background: var(--color-bg-input);
     outline: none;
     transition: border-color 0.15s, background 0.15s;
 }
 
-#new_todo_input::placeholder {
-    color: #c0c0c0;
-}
+#new_todo_input::placeholder { color: var(--color-placeholder); }
 
 #new_todo_input:focus {
-    border-color: #6366f1;
+    border-color: var(--color-accent);
     background: #ffffff;
 }
 
@@ -64,14 +176,8 @@ body {
     gap: 4px;
 }
 
-#todos_container::-webkit-scrollbar {
-    width: 3px;
-}
-
-#todos_container::-webkit-scrollbar-thumb {
-    background: #e5e7eb;
-    border-radius: 3px;
-}
+#todos_container::-webkit-scrollbar       { width: 3px; }
+#todos_container::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
 
 .todo {
     display: flex;
@@ -79,16 +185,14 @@ body {
     align-items: center;
     padding: 5px 8px;
     border-radius: 6px;
-    background: #f9fafb;
-    border: 1px solid #f3f4f6;
+    background: var(--color-bg-item);
+    border: 1px solid var(--color-bg-hover);
     transition: background 0.15s;
 }
 
-.todo:hover {
-    background: #f3f4f6;
-}
+.todo:hover { background: var(--color-bg-hover); }
 
-.todo_content {
+.todo-content {
     display: flex;
     align-items: center;
     gap: 7px;
@@ -96,26 +200,26 @@ body {
     min-width: 0;
 }
 
-.todo_checkbox {
-    accent-color: #6366f1;
+.todo-checkbox {
+    accent-color: var(--color-accent);
     cursor: pointer;
     flex-shrink: 0;
 }
 
-.todo_text {
+.todo-text {
     font-size: 12px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #374151;
+    color: var(--color-text);
 }
 
-.todo.done .todo_text {
+.todo.done .todo-text {
     text-decoration: line-through;
-    color: #d1d5db;
+    color: var(--color-text-done);
 }
 
-.delete_cross {
+.delete-btn {
     width: 16px;
     height: 16px;
     position: relative;
@@ -125,30 +229,20 @@ body {
     transition: opacity 0.15s;
 }
 
-.todo:hover .delete_cross {
-    opacity: 0.4;
-}
+.todo:hover .delete-btn         { opacity: 0.4; }
+.delete-btn:hover               { opacity: 1 !important; }
 
-.delete_cross:hover {
-    opacity: 1 !important;
-}
-
-.delete_cross::before,
-.delete_cross::after {
+.delete-btn::before,
+.delete-btn::after {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     width: 10px;
     height: 1.5px;
-    background-color: #ef4444;
+    background: var(--color-delete);
     border-radius: 1px;
 }
 
-.delete_cross::before {
-    transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.delete_cross::after {
-    transform: translate(-50%, -50%) rotate(-45deg);
-}
+.delete-btn::before { transform: translate(-50%, -50%) rotate(45deg); }
+.delete-btn::after  { transform: translate(-50%, -50%) rotate(-45deg); }
