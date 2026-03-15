@@ -1,28 +1,23 @@
 const add_todo_input = document.getElementById("new_todo_input");
-const getButton = document.getElementById("get");
-const textBox = document.getElementById("storage");
-const test_btn = document.getElementById("test");
-const clear_btn = document.getElementById("clear");
 const todos_container = document.getElementById("todos_container");
-let db = {}; // {"domain1": [{}, {}], "domain2": [{}, {}]}
+let db = {}; // { "domain": [{ val, done }] }
 let domain;
 
-// Function to create HTML for a single todo
 const create_todo_html = (val, done) => {
     const todo = document.createElement("div");
-    todo.className = "todo";
+    todo.className = "todo" + (done ? " done" : "");
+
+    const todoContent = document.createElement("div");
+    todoContent.className = "todo_content";
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.className = "todo_checkbox";
     checkbox.checked = done;
 
-    const todoContent = document.createElement("div");
-    todoContent.className = "todo_content";
-
     const todo_text = document.createElement("span");
     todo_text.className = "todo_text";
-    todo_text.innerHTML = val;
+    todo_text.textContent = val;
 
     const delete_cross = document.createElement("span");
     delete_cross.className = "delete_cross";
@@ -32,32 +27,33 @@ const create_todo_html = (val, done) => {
     todo.appendChild(todoContent);
     todo.appendChild(delete_cross);
 
-    if (done) {
-        todo.classList.add("done");
-    }
-
     return todo;
 };
-// Function to add a todo
-const addTodo = (domain, val) => {
+
+const addTodo = (val) => {
+    if (!val) return;
     if (domain in db) {
         db[domain].push({ val, done: false });
     } else {
         db[domain] = [{ val, done: false }];
     }
-
     todos_container.appendChild(create_todo_html(val, false));
     add_todo_input.value = "";
     updateStorage();
 };
 
-// Function to delete a todo
-const deleteTodo = (domain, val) => {
+const deleteTodo = (val) => {
     db[domain] = db[domain].filter((todo) => todo.val !== val);
     updateStorage();
 };
 
-// Function to retrieve all todos from storage
+const toggleTodo = (val, isDone) => {
+    db[domain].forEach((todo) => {
+        if (todo.val === val) todo.done = isDone;
+    });
+    updateStorage();
+};
+
 const getAllTodosFromStorage = () => {
     chrome.storage.sync.get(domain, (data) => {
         db = data;
@@ -69,71 +65,38 @@ const getAllTodosFromStorage = () => {
     });
 };
 
-// Function to update storage
 const updateStorage = () => {
-    chrome.storage.sync.set(db, () => {
-        console.log('Data saved to Chrome storage');
-    });
+    chrome.storage.sync.set(db);
 };
 
-// Event listener for adding a todo on Enter key press
 add_todo_input.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
-        addTodo(domain, add_todo_input.value.trim());
+        addTodo(add_todo_input.value.trim());
     }
 });
 
-// Event delegation for delete button
-document.addEventListener('click', (e) => {
-    if (e.target && e.target.classList.contains('delete_todo')) {
-        const todoText = e.target.parentElement.querySelector('.todo_text').innerHTML;
-        deleteTodo(domain, todoText);
-        e.target.parentElement.remove();
-    }
-});
-
-// Event listener for toggling todo completion
-todos_container.addEventListener('click', (e) => {
-    if (e.target && e.target.classList.contains('delete_cross')) {
+todos_container.addEventListener("click", (e) => {
+    if (e.target.classList.contains("delete_cross")) {
         const todo = e.target.parentElement;
-        const todoText = todo.querySelector('.todo_text').innerHTML;
-        deleteTodo(domain, todoText);
+        const val = todo.querySelector(".todo_text").textContent;
+        deleteTodo(val);
         todo.remove();
     }
-});
-// Function to update todo status
-const updateTodoStatus = (domain, val, isDone) => {
-    db[domain].forEach((todo) => {
-        if (todo.val === val) {
-            todo.done = isDone;
-        }
-    });
-    updateStorage();
-    if (isDone) {
-        todos_container.querySelector(`.todo_text:contains('${val}')`).parentElement.classList.add('done');
-    } else {
-        todos_container.querySelector(`.todo_text:contains('${val}')`).parentElement.classList.remove('done');
-    }
-};
 
-// Function to get the current tab's domain
+    if (e.target.classList.contains("todo_checkbox")) {
+        const todo = e.target.closest(".todo");
+        const val = todo.querySelector(".todo_text").textContent;
+        const isDone = e.target.checked;
+        todo.classList.toggle("done", isDone);
+        toggleTodo(val, isDone);
+    }
+});
+
 const getCurrentTab = () => {
     chrome.tabs.query({ active: true }, (tabs) => {
         domain = new URL(tabs[0].url).hostname;
-        console.log(domain);
         getAllTodosFromStorage();
     });
 };
 
 getCurrentTab();
-
-test_btn.onclick = () => {
-    console.log(db);
-};
-
-clear_btn.onclick = () => {
-    chrome.storage.sync.clear(() => {
-        db = {};
-        todos_container.innerHTML = ''; // Clearing the displayed todos
-    });
-};

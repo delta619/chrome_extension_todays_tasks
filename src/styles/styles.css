@@ -1,65 +1,154 @@
-*{
-box-sizing: border-box;
-margin:0;
-
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-
-body{
-    font-family: 'Roboto', sans-serif;
-    background-color: cornsilk;
-    color: #333;
-    padding: 5px;
-    font-size: 16px;
-    line-height: 1.5;
-    font-weight: 400;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: #ffffff;
+    color: #1a1a1a;
     width: 15rem;
     height: 20rem;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
 }
 
-
-.container{
-    /* border: 1px solid black; */
-    /* padding: 10px; */
+.container {
     height: 100%;
     width: 100%;
-
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    /* align-items: center; */
-    overflow: scroll;
-
+    padding: 12px;
+    gap: 8px;
+    overflow: hidden;
 }
 
-.description{
-    font-weight: 200;
-    margin-bottom: 10px;
-}
-.delete_cross {
-    width: 20px; /* Adjust size as needed */
-    height: 20px;
-    background-image: url('https://static.vecteezy.com/system/resources/previews/017/178/056/original/red-cross-mark-on-transparent-background-free-png.png'); /* Path to your red cross image */
-    background-size: cover; /* Ensure the image covers the entire span */
-    background-repeat: no-repeat;
-    cursor: pointer; /* Optionally add cursor style */
+.hint {
+    font-size: 10px;
+    color: #9ca3af;
+    text-align: center;
 }
 
+.new_todo_container {
+    display: flex;
+}
+
+#new_todo_input {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #1a1a1a;
+    background: #f9fafb;
+    outline: none;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+#new_todo_input::placeholder {
+    color: #c0c0c0;
+}
+
+#new_todo_input:focus {
+    border-color: #6366f1;
+    background: #ffffff;
+}
+
+#todos_container {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+#todos_container::-webkit-scrollbar {
+    width: 3px;
+}
+
+#todos_container::-webkit-scrollbar-thumb {
+    background: #e5e7eb;
+    border-radius: 3px;
+}
 
 .todo {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 5px 8px;
+    border-radius: 6px;
+    background: #f9fafb;
+    border: 1px solid #f3f4f6;
+    transition: background 0.15s;
 }
 
+.todo:hover {
+    background: #f3f4f6;
+}
 
 .todo_content {
     display: flex;
     align-items: center;
+    gap: 7px;
+    flex: 1;
+    min-width: 0;
+}
+
+.todo_checkbox {
+    accent-color: #6366f1;
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
 .todo_text {
-    margin-right: 10px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #374151;
+}
+
+.todo.done .todo_text {
+    text-decoration: line-through;
+    color: #d1d5db;
+}
+
+.delete_cross {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.todo:hover .delete_cross {
+    opacity: 0.4;
+}
+
+.delete_cross:hover {
+    opacity: 1 !important;
+}
+
+.delete_cross::before,
+.delete_cross::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 1.5px;
+    background-color: #ef4444;
+    border-radius: 1px;
+}
+
+.delete_cross::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.delete_cross::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
 }

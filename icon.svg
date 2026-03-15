@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Background -->
+  <rect width="128" height="128" rx="24" fill="#6366f1"/>
+
+  <!-- Row 1: checked box + line -->
+  <rect x="22" y="34" width="20" height="20" rx="5" fill="none" stroke="white" stroke-width="3"/>
+  <polyline points="26,44 31,49 41,37" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="52" y="39" width="54" height="9" rx="4.5" fill="white"/>
+
+  <!-- Row 2: unchecked box + line -->
+  <rect x="22" y="64" width="20" height="20" rx="5" fill="none" stroke="white" stroke-width="3" opacity="0.6"/>
+  <rect x="52" y="69" width="42" height="9" rx="4.5" fill="white" opacity="0.5"/>
+
+  <!-- Row 3: unchecked box + line -->
+  <rect x="22" y="94" width="20" height="20" rx="5" fill="none" stroke="white" stroke-width="3" opacity="0.35"/>
+  <rect x="52" y="99" width="30" height="9" rx="4.5" fill="white" opacity="0.3"/>
+</svg>
