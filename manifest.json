@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Todays tasks",
-  "description": "Base Level Extension",
-  "version": "1.2.2",
+  "description": "A focused to-do list tied to the website you're on. Tasks on YouTube stay on YouTube, tasks on Wikipedia stay on Wikipedia — one click to see only what matters right now.",
+  "version": "1.2.3",
   "permissions": [
     "storage",
     "tabs",
@@ -16,7 +16,6 @@
     "48": "icon48.png",
     "128": "icon128.png"
   },
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2nGGIDCpp/xF59Oa1YmHbVrI/LAzemcEKdUN/YXUVjM2PfTfFo9zjFk6DBgjwWbeDhs8YiMtAMEe5pFCAaE+2nMFu5bcTnOvy4LXCa4JpNsnJS6rHg8sokwhS/hf9bGGyWJgJfRKaza0ujQ8XeQWfP44+YzVs63u7WDBZAanL30ymTXqXbH4wmYuzpMe+ZPT4EYDOVZt7Q5Ma3C1QyG3wCjFjDXUFkNeoOC1MhaAkf0TDodxqOjoGCnWu/L1mPG0CvrYmAtrGBDT2hgyh/o/PLW3oEr+ZuMB1oO4dIZoOHHr9bl6HaPFLy2IGk6vkrpVeAuREfeOYHdnnKmzFLpiOQIDAQAB",
   "oauth2": {
     "client_id": "191212625078-hvp8d3h4f4irfoqsrumsj36fuu1em6rj.apps.googleusercontent.com",
     "scopes": ["https://www.googleapis.com/auth/drive.appdata"]
