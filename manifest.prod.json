@@ -1,7 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Todays tasks [dev]",
+  "name": "Todays tasks",
   "description": "Per-site to-do lists that keep you focused. Tasks on YouTube stay on YouTube, Figma tasks stay on Figma. One click, zero noise.",
+  "version": "1.2.4",
   "permissions": [
     "storage",
     "tabs",
@@ -11,9 +12,9 @@
     "https://www.googleapis.com/*"
   ],
   "icons": {
-    "16": "src/images/icon16-dev.png",
-    "48": "src/images/icon48-dev.png",
-    "128": "src/images/icon128-dev.png"
+    "16": "src/images/icon16.png",
+    "48": "src/images/icon48.png",
+    "128": "src/images/icon128.png"
   },
   "oauth2": {
     "client_id": "191212625078-hvp8d3h4f4irfoqsrumsj36fuu1em6rj.apps.googleusercontent.com",
@@ -22,9 +23,9 @@
   "action": {
     "default_popup": "./src/index.html",
     "default_icon": {
-      "16": "src/images/icon16-dev.png",
-      "48": "src/images/icon48-dev.png",
-      "128": "src/images/icon128-dev.png"
+      "16": "src/images/icon16.png",
+      "48": "src/images/icon48.png",
+      "128": "src/images/icon128.png"
     }
   }
 }
